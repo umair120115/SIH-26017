@@ -1,0 +1,37 @@
+REPORTABLE JUDGMENT
+IN THE SUPREME COURT OF INDIA
+CIVIL APPELLATE JURISDICTION
+
+CIVIL APPEAL NO. 7824 OF 2023
+
+State of Maharashtra & Anr.                        ... Appellants
+                                VERSUS
+Suresh G. Patil & Ors.                             ... Respondents
+
+BENCH: HON'BLE MR. JUSTICE R. F. NARIMAN & HON'BLE MR. JUSTICE S. RAVINDRA BHAT
+DECIDED ON: NOVEMBER 28, 2023
+
+--------------------------------------------------------------------------------
+SUBJECT: INTERPRETATION OF STATUTORY 12-MONTH LIMITATION UNDER SECTION 19(2)
+OF THE RFCTLARR ACT, 2013 AND MANDATORY LAPSING OF SECTION 11 PROCEEDINGS
+--------------------------------------------------------------------------------
+
+JUDGMENT SUMMARY & RATIO DECIDENDI:
+
+1. The central question of law is whether the statutory time period of twelve (12) months prescribed under Section 19(2) of the Right to Fair Compensation and Transparency in Land Acquisition, Rehabilitation and Resettlement Act, 2013 is mandatory or directory.
+
+2. STATUTORY LANGUAGE OF SECTION 19(2):
+   "Where no declaration is made under sub-section (1) within twelve months from the date of preliminary notification published under sub-section (1) of section 11, then, the said notification shall be deemed to have lapsed:
+   Provided that in computing the period of twelve months, any period or periods during which any action or proceeding was stayed by an order of a Court shall be excluded."
+
+3. THE SUPREME COURT HELD:
+   (a) The legislative intent behind replacing the 1894 Act with the 2013 Act was to eliminate indefinite pendency and harassment of landowners whose titles remain frozen after preliminary notices.
+   (b) The phrase "shall be deemed to have lapsed" creates a statutory legal fiction with mandatory consequence. The expiry of 365 calendar days from the date of publication of the Section 11 preliminary notification without a valid Section 19 declaration is fatal to the acquisition.
+   (c) Executive delay, administrative staffing shortages, or internal correspondence between state departments do NOT constitute grounds for extending the 12-month period. Only an explicit judicial stay order issued by a court of competent jurisdiction can be excluded under the Proviso to Section 19(2).
+
+4. CONCLUSION:
+   The High Court was fully justified in quashing the delayed acquisition proceedings. The preliminary notification dated 14.01.2022 lapsed on 14.01.2023 by operation of law. The appeal by the State is accordingly dismissed.
+
+(R. F. NARIMAN, J.)
+(S. RAVINDRA BHAT, J.)
+SUPREME COURT OF INDIA
