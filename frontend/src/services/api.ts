@@ -3,7 +3,11 @@ import {
   WhatIfResult, Alert, RagChunk
 } from "../types";
 
-const RAW_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const RAW_API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  "http://localhost:8000";
 const API_BASE_URL = RAW_API_URL.replace(/\/+$/, "");
 
 export const api = {
