@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Shield, Activity, RefreshCw, Landmark, Sparkles, MapPin } from "lucide-react";
+import { Shield, Activity, RefreshCw, Landmark, Sparkles, MapPin, Sliders, Lock } from "lucide-react";
 
 interface NavigationHeaderProps {
   selectedState: string;
@@ -14,6 +14,7 @@ interface NavigationHeaderProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
   criticalAlertCount: number;
+  onOpenCustomModal: () => void;
 }
 
 export default function NavigationHeader({
@@ -27,6 +28,7 @@ export default function NavigationHeader({
   activeTab,
   onTabChange,
   criticalAlertCount,
+  onOpenCustomModal,
 }: NavigationHeaderProps) {
   const states = ["All", "Gujarat", "Maharashtra", "Karnataka", "Tamil Nadu", "West Bengal", "Uttar Pradesh", "Odisha"];
   const riskBands = ["All", "LOW", "MEDIUM", "CRITICAL"];
@@ -62,10 +64,32 @@ export default function NavigationHeader({
                 Ministry of Rural Development · Government of India (SIH26017)
               </p>
             </div>
+
+            {/* Authenticated Government Session Indicator */}
+            <div className="hidden xl:flex items-center space-x-2 px-3 py-1.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs shadow-inner">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-mono text-slate-400 text-[11px]">Auth:</span>
+              <span className="font-semibold text-slate-200">CALA / Competent Authority</span>
+              <span className="text-slate-700">|</span>
+              <span className="font-mono text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                TOKEN #26017-GOI
+              </span>
+            </div>
           </div>
 
           {/* Controls & Quick Actions */}
           <div className="flex items-center space-x-3">
+            {/* Evaluate Custom Case / Judge Tester Button */}
+            <button
+              type="button"
+              onClick={onOpenCustomModal}
+              className="px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-lg text-xs font-semibold flex items-center shadow-md shadow-emerald-950/40 border border-emerald-400/30 transition-all cursor-pointer"
+              title="Open Interactive Case Evaluator for Judges & Evaluators"
+            >
+              <Sliders className="w-3.5 h-3.5 mr-1.5 text-emerald-100" />
+              <span>+ Evaluate Custom Project</span>
+            </button>
+
             {/* State Filter */}
             <div className="flex items-center space-x-1.5 bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs">
               <MapPin className="w-3.5 h-3.5 text-slate-400" />

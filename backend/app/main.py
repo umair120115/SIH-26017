@@ -1,3 +1,4 @@
+import uuid
 from datetime import date
 from typing import List, Optional, Dict, Any
 from fastapi import FastAPI, HTTPException, Depends, Query
@@ -144,6 +145,66 @@ def get_project_by_id(project_id: str):
         if prj["id"] == project_id or prj.get("project_code") == project_id:
             return prj
     raise HTTPException(status_code=404, detail="Project not found")
+
+@app.post("/projects")
+def create_and_evaluate_project(features: ProjectFeatures):
+    """
+    Evaluates and registers a new land acquisition project into the active portfolio.
+    Calculates real-time delay probability, lapsing risk, assigns a persistent ID,
+    and prepends it to the portfolio so judges can immediately observe it across all views.
+    """
+    try:
+        prob, cat, days, s11_days, s19_days, lapse, stage_hazard = ml_engine.predict_delay(features)
+        
+        new_id = f"p-custom-{uuid.uuid4().hex[:8]}"
+        project_code = features.project_code if features.project_code and features.project_code != "PRJ-DEFAULT" else f"PRJ-EVAL-{date.today().year}-{len(db_manager.in_memory_projects)+1:03d}"
+        
+        project_record = {
+            "id": new_id,
+            "project_code": project_code,
+            "project_name": features.project_name or "Custom Evaluated Project",
+            "project_type": features.project_type or "National Highway",
+            "sector": features.sector or "Transport",
+            "state_name": features.state_name or "Maharashtra",
+            "district_name": features.district_name or "Central Division",
+            "latitude": features.latitude or 20.5937,
+            "longitude": features.longitude or 78.9629,
+            "total_acreage_ha": features.total_acreage_ha,
+            "num_land_parcels": features.num_land_parcels,
+            "affected_families": features.affected_families or int(features.num_land_parcels * 1.8),
+            "project_cost_cr": features.project_cost_cr or round(features.total_acreage_ha * 4.2, 1),
+            "private_to_govt_ratio": features.private_to_govt_ratio,
+            "sc_st_land_percentage": features.sc_st_land_percentage,
+            "multi_crop_irrigated_percentage": features.multi_crop_irrigated_percentage,
+            "required_consent_percentage": features.required_consent_percentage,
+            "non_owner_to_owner_paf_ratio": features.non_owner_to_owner_paf_ratio,
+            "circle_rate_disparity_ratio": features.circle_rate_disparity_ratio,
+            "rr_cost_share_percentage": features.rr_cost_share_percentage,
+            "rural_multiplier_factor": features.rural_multiplier_factor,
+            "district_litigation_rate": features.district_litigation_rate,
+            "revenue_staff_vacancy_rate": features.revenue_staff_vacancy_rate,
+            "avg_s15_resolution_days": features.avg_s15_resolution_days,
+            "current_stage": features.current_stage or "Section 11 Notification",
+            "s11_notification_date": features.s11_notification_date.isoformat(),
+            "s15_hearing_date": features.s15_hearing_date.isoformat() if features.s15_hearing_date else None,
+            "s19_declaration_date": features.s19_declaration_date.isoformat() if features.s19_declaration_date else None,
+            "s23_award_date": features.s23_award_date.isoformat() if features.s23_award_date else None,
+            "s38_possession_date": features.s38_possession_date.isoformat() if features.s38_possession_date else None,
+            "delay_probability": round(prob, 3),
+            "risk_category": cat,
+            "expected_delay_days": days,
+            "days_since_s11": s11_days,
+            "days_remaining_s19": s19_days,
+            "lapsing_risk_s19": lapse,
+            "stage_wise_hazard": stage_hazard,
+            "is_custom_evaluation": True
+        }
+        
+        # Prepend to live portfolio so it immediately shows up as the first item
+        db_manager.in_memory_projects.insert(0, project_record)
+        return project_record
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create project: {str(e)}")
 
 @app.post("/predict", response_model=DelayPredictionResponse)
 def predict_project_delay(features: ProjectFeatures):

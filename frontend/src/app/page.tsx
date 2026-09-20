@@ -12,6 +12,7 @@ import PrescriptiveSolutionsCard from "../components/PrescriptiveSolutionsCard";
 import WhatIfSimulator from "../components/WhatIfSimulator";
 import LegalRagConsole from "../components/LegalRagConsole";
 import ProjectDetailModal from "../components/ProjectDetailModal";
+import CustomProjectModal from "../components/CustomProjectModal";
 import { Search, Filter, ShieldAlert, ArrowRight, Eye, Sparkles } from "lucide-react";
 
 export default function DashboardPage() {
@@ -22,6 +23,7 @@ export default function DashboardPage() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [loading, setLoading] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isCustomModalOpen, setIsCustomModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [modalProject, setModalProject] = useState<Project | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -84,6 +86,7 @@ export default function DashboardPage() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
         criticalAlertCount={portfolio?.critical_lapsing_projects_count || 0}
+        onOpenCustomModal={() => setIsCustomModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -287,6 +290,16 @@ export default function DashboardPage() {
         onViewPrescriptions={(p) => {
           setSelectedProject(p);
           setActiveTab("prescriptive");
+        }}
+      />
+
+      {/* Interactive Custom Case Evaluation Modal for Judges & Officers */}
+      <CustomProjectModal
+        isOpen={isCustomModalOpen}
+        onClose={() => setIsCustomModalOpen(false)}
+        onProjectCreated={(newProject) => {
+          setSelectedProject(newProject);
+          fetchData();
         }}
       />
 

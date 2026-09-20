@@ -1,0 +1,34 @@
+services:
+  # 1. FastAPI Intelligence & Prediction API (Backend Service)
+  - type: web
+    name: dolr-larr-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install --no-cache-dir -r requirements-render.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    plan: free
+    region: singapore # Closest low-latency region to India
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: PORT
+        value: 8000
+      - key: CUSTOM_MODEL_PATH
+        value: models/model.json
+      - key: DATABASE_URL
+        sync: false
+
+  # 2. Next.js 16 Executive Command Hub (Frontend Web Service)
+  - type: web
+    name: dolr-larr-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    plan: free
+    region: singapore
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0
+      - key: NEXT_PUBLIC_API_URL
+        value: https://dolr-larr-api.onrender.com
