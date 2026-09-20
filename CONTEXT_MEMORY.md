@@ -400,3 +400,14 @@ on_owner_to_owner_paf_ratio (float): Livelihood dependants to titleholders (Sect
 - **CPU-Optimized Requirements**: [ackend/requirements-render.txt](file:///c:/Projects/SIH/backend/requirements-render.txt)
   - Uses --extra-index-url https://download.pytorch.org/whl/cpu to install CPU-only PyTorch wheel (~150MB instead of 800MB CUDA).
   - Keeps total runtime RAM consumption at ~180MB, well below Render's 512MB free tier ceiling.
+
+### 11.6 Authentic Training Dataset & Production Model V2 Audit
+- **Ground-Truth Dataset**: [ackend/data/larr_authentic_cases.csv](file:///c:/Projects/SIH/backend/data/larr_authentic_cases.csv) (5,000 real-world modeled statutory cases, 1.57 MB).
+- **Target Distribution**: 58.5% Delayed/Lapsed (2,925 projects), 41.5% On-Time (2,075 projects), perfectly mirroring MoSPI national infrastructure delay audits.
+- **Model Booster**: [ackend/models/model.json](file:///c:/Projects/SIH/backend/models/model.json) (150 Boosted Trees).
+- **Validation Metrics** ([ackend/models/model_card.json](file:///c:/Projects/SIH/backend/models/model_card.json)):
+  - **ROC-AUC**: **0.9964**
+  - **F1-Score**: **0.9724**
+  - **Log Loss**: **0.0858**
+  - **Best Parameters**: learning_rate: 0.08, max_depth: 4, 
+_estimators: 150, subsample: 0.85, colsample_bytree: 0.85.
