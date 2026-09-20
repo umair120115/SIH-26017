@@ -72,7 +72,7 @@ export default function DashboardPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#050811] text-slate-100 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-300">
+    <div className="min-h-screen bg-[#080C16] text-slate-100 flex flex-col font-sans selection:bg-blue-600/30 selection:text-blue-200">
       
       {/* Top Authority Header */}
       <NavigationHeader
@@ -108,27 +108,32 @@ export default function DashboardPage() {
               selectedProject={selectedProject}
             />
 
-            {/* Project Portfolio Grid / Table */}
-            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl space-y-4 p-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            {/* National Land Acquisition Gazette Register Table */}
+            <div className="bg-[#0D1322] border border-slate-800/90 rounded-xl overflow-hidden shadow-xl space-y-4 p-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/60 pb-3">
                 <div>
-                  <h3 className="text-sm font-bold text-white flex items-center">
-                    Active Infrastructure Acquisition Pipeline
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Real-time risk scoring, statutory lapsing countdowns, and delay probability
+                  <div className="flex items-center space-x-2">
+                    <span className="font-mono text-[10px] uppercase font-bold text-blue-400 bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800/50">
+                      Gazette Registry
+                    </span>
+                    <h3 className="text-sm font-bold text-white tracking-tight">
+                      Active Land Acquisition Pipeline (RFCTLARR Compliance Roster)
+                    </h3>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Statutory stage monitoring, 12-month Section 19 lapsing countdowns, and TreeSHAP delay probability
                   </p>
                 </div>
 
                 {/* Table Search Input */}
                 <div className="relative w-full sm:w-72">
-                  <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search by project name, code, district..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 outline-none focus:border-sky-500"
+                    className="w-full bg-[#080C16] border border-slate-750 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 outline-none focus:border-blue-500 transition-colors"
                   />
                 </div>
               </div>
@@ -136,14 +141,14 @@ export default function DashboardPage() {
               {/* Table */}
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                  <thead className="bg-[#080C16] text-slate-400 font-mono text-[11px] uppercase tracking-wider border-b border-slate-800">
                     <tr>
-                      <th className="p-3">Code</th>
-                      <th className="p-3">Project Title</th>
+                      <th className="p-3">Gazette Code</th>
+                      <th className="p-3">Infrastructure Project</th>
                       <th className="p-3">State / District</th>
-                      <th className="p-3">Current Stage</th>
-                      <th className="p-3">Footprint / Cost</th>
-                      <th className="p-3">Delay Risk Prob</th>
+                      <th className="p-3">Statutory Stage</th>
+                      <th className="p-3">Acreage & Cost</th>
+                      <th className="p-3">Delay Risk Tier</th>
                       <th className="p-3">Expected Delay</th>
                       <th className="p-3 text-right">Actions</th>
                     </tr>
@@ -160,24 +165,24 @@ export default function DashboardPage() {
                             selectedProject?.id === prj.id ? "bg-slate-800/30" : ""
                           }`}
                         >
-                          <td className="p-3 font-mono text-sky-400 font-bold">{prj.project_code}</td>
-                          <td className="p-3 font-bold text-white max-w-xs truncate">{prj.project_name}</td>
+                          <td className="p-3 font-mono text-blue-400 font-bold">{prj.project_code}</td>
+                          <td className="p-3 font-semibold text-white max-w-xs truncate">{prj.project_name}</td>
                           <td className="p-3 text-slate-300">{prj.district_name}, {prj.state_name}</td>
                           <td className="p-3">
-                            <span className="px-2 py-0.5 bg-slate-950 border border-slate-800 rounded text-[11px]">
+                            <span className="px-2 py-0.5 bg-[#080C16] border border-slate-800 rounded font-mono text-[11px] text-slate-300">
                               {prj.current_stage}
                             </span>
                           </td>
-                          <td className="p-3">
+                          <td className="p-3 font-mono">
                             {prj.total_acreage_ha} ha <span className="text-slate-500">(₹{prj.project_cost_cr} Cr)</span>
                           </td>
                           <td className="p-3">
-                            <span className={`px-2 py-0.5 rounded font-bold font-mono text-[11px] ${
+                            <span className={`px-2 py-0.5 rounded font-bold font-mono text-[10px] uppercase tracking-wider ${
                               isCritical 
-                                ? "bg-rose-500/20 text-rose-400 border border-rose-500/30" 
+                                ? "bg-rose-950/80 text-rose-400 border border-rose-800/60" 
                                 : isMedium 
-                                ? "bg-amber-500/20 text-amber-400 border border-amber-500/30" 
-                                : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                                ? "bg-amber-950/80 text-amber-400 border border-amber-800/60" 
+                                : "bg-emerald-950/80 text-emerald-400 border border-emerald-800/60"
                             }`}>
                               {prj.risk_category} ({Math.round((prj.delay_probability || 0) * 100)}%)
                             </span>
@@ -191,10 +196,11 @@ export default function DashboardPage() {
                                 setSelectedProject(prj);
                                 setModalProject(prj);
                               }}
-                              className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold inline-flex items-center space-x-1"
-                              title="Audit Project Record"
+                              className="p-1.5 bg-slate-800/80 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium inline-flex items-center space-x-1 border border-slate-750 transition-colors cursor-pointer"
+                              title="Audit Statutory Project File"
                             >
                               <Eye className="w-3.5 h-3.5" />
+                              <span className="text-[11px]">Inspect</span>
                             </button>
                           </td>
                         </tr>
@@ -303,14 +309,31 @@ export default function DashboardPage() {
         }}
       />
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950/60 py-6 text-center text-xs text-slate-500">
-        <p>
-          Smart India Hackathon 2026 · Problem Statement SIH26017 · Ministry of Rural Development (DoLR)
-        </p>
-        <p className="mt-1 text-[11px] text-slate-600">
-          Predictive Analytics & Decision-Support Platform under Right to Fair Compensation & Transparency in Land Acquisition, Rehabilitation and Resettlement Act, 2013
-        </p>
+      {/* Sovereign National Portal Footer */}
+      <footer className="border-t border-slate-800/90 bg-[#060913] py-8 text-xs text-slate-400">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-center md:text-left space-y-1">
+            <div className="flex items-center justify-center md:justify-start space-x-2">
+              <span className="font-semibold text-amber-500 font-mono text-[11px]">सत्यमेव जयते</span>
+              <span className="text-slate-600">|</span>
+              <p className="font-semibold text-slate-200">
+                Department of Land Resources (DoLR) · Ministry of Rural Development · Government of India
+              </p>
+            </div>
+            <p className="text-[11px] text-slate-500">
+              PRAGATI-LARR Statutory Decision Support System (SIH26017) · National Land Records Modernization Programme (NLRMP)
+            </p>
+          </div>
+
+          <div className="text-center md:text-right space-y-1 font-mono text-[11px] text-slate-500">
+            <p>
+              Statutory Benchmark: <strong className="text-slate-300">RFCTLARR Act, 2013 (Act No. 30 of 2013)</strong>
+            </p>
+            <p className="text-[10px] text-slate-600">
+              Sections 11, 15, 19, 23, 26, 38, 41, 42 & Schedules I–IV Compliant
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
