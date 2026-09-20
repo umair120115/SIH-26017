@@ -1,0 +1,34 @@
+{
+  "model_type": "XGBoost Classifier (100+ Boosted Trees)",
+  "features": [
+    "total_acreage_ha",
+    "num_land_parcels",
+    "private_to_govt_ratio",
+    "sc_st_land_percentage",
+    "multi_crop_irrigated_percentage",
+    "required_consent_percentage",
+    "non_owner_to_owner_paf_ratio",
+    "circle_rate_disparity_ratio",
+    "rr_cost_share_percentage",
+    "rural_multiplier_factor",
+    "district_litigation_rate",
+    "revenue_staff_vacancy_rate",
+    "avg_s15_resolution_days",
+    "days_since_s11"
+  ],
+  "training_samples": 5000,
+  "validation_metrics": {
+    "roc_auc": 0.9964,
+    "f1_score": 0.9724,
+    "log_loss": 0.0858
+  },
+  "best_hyperparameters": {
+    "colsample_bytree": 0.85,
+    "learning_rate": 0.08,
+    "max_depth": 4,
+    "n_estimators": 150,
+    "subsample": 0.85
+  },
+  "trained_at": "2026-09-20T17:12:10.957966Z",
+  "statute": "RFCTLARR Act 2013 (SIH26017)"
+}
