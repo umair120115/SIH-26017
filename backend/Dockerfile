@@ -16,10 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install
-COPY requirements.txt .
+# Copy requirements and install (using CPU-only wheels for fast build & low RAM)
+COPY requirements-render.txt ./requirements.txt
 
-# Install dependencies (using CPU-only wheels where applicable to save RAM and disk)
+# Install dependencies
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
