@@ -36,7 +36,7 @@ app.add_middleware(
 app.include_router(ingestion_router)
 app.include_router(ingestion_router, prefix="/api/v1")
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def get_root():
     return {
         "service": settings.PROJECT_NAME,
@@ -46,6 +46,10 @@ def get_root():
         "database_connected": db_manager.is_connected,
         "available_projects_count": len(db_manager.in_memory_projects)
     }
+
+@app.api_route("/health", methods=["GET", "HEAD"])
+def health_check():
+    return {"status": "HEALTHY", "service": settings.PROJECT_NAME}
 
 @app.get("/portfolio", response_model=PortfolioOverview)
 def get_portfolio_overview(
